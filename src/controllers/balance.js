@@ -196,9 +196,24 @@ exports.chargeBalance = async (req, res) => {
 
           db.query(createTransactionSQL, createTransactionValues)
             .then((result) => {
-              res.status(200).json({
-                message: 'Balance consumed successfully',
-                data: result.rows[0]
+              const transactionId = result.rows[0].transaction_id
+              fetch(`${process.env.FLXA_TOKEN_SRV}/token/mint`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({transactionId})
+              }).then((response)=>{
+                if(!response.status === 201){
+                  return res.status(500).json({error: 'Failed to mint token'})
+                }
+                return res.status(200).json({
+                  message: 'Balance charged successfully',
+                  data: result.rows[0]
+                })
+              }).catch((error) => {
+                console.error('Error consuming balance:', error)
+                res.status(500).json({ error: 'Failed to consume balance' })
               })
             })
             .catch((error) => {
