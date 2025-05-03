@@ -202,10 +202,10 @@ exports.chargeBalance = async (req, res) => {
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({transactionId})
-              }).then((response)=>{
-                if(!response.status === 201){
-                  return res.status(500).json({error: 'Failed to mint token'})
+                body: JSON.stringify({ transactionId })
+              }).then((response) => {
+                if (!response.status === 201) {
+                  return res.status(500).json({ error: 'Failed to mint token' })
                 }
                 return res.status(200).json({
                   message: 'Balance charged successfully',
