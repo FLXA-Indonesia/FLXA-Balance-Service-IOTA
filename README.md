@@ -79,7 +79,7 @@ The service exposes the RESTful API endpoints accessible at `/src/routes`
 Note: Authentication middleware ensures that only authorized users can access certain endpoints.
 
 ## Contributing
-We welcome contributions to enhance the FLXA User Service. To contribute:
+We welcome contributions. To contribute:
 1. Fork the repository.
 2. Create a new branch for your feature or bug fix.
 3. Commit your changes with clear messages.
