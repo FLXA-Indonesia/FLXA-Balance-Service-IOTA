@@ -463,14 +463,14 @@ exports.chargeMobileCredit = (req, res) => {
               ]
 
               db.query(sql, values)
-                .then(() => {
+                .then((txResult) => {
                   const sql =
                     'UPDATE "Balance" SET balance_amount = balance_amount + $1 WHERE balance_id = $2'
                   const values = [amount, balanceId]
 
                   db.query(sql, values)
                     .then((result) => {
-                      const transactionId = result.rows[0].transaction_id
+                      const transactionId = txResult.rows[0].transaction_id
                       fetch(`${process.env.FLXA_TOKEN_SRV}/token/mint`, {
                         method: 'POST',
                         headers: {
