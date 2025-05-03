@@ -12,11 +12,20 @@ exports.createBalance = (req, res) => {
   const values = [userId, 0]
 
   db.query(sql, values)
-    .then((result) => {
-      res.status(201).json({
-        message: 'Balance created successfully',
-        data: result.rows[0]
-      })
+    .then((balanceResult) => {
+      db.query(`INSERT INTO "Token_balance" (user_id) VALUES ($1) RETURNING *`, [userId])
+        .then((tokenBalanceResult) => {
+          res.status(201).json({
+            message: 'Balance created successfully',
+            data: {
+              balance: balanceResult.rows[0],
+              tokenBalance: tokenBalanceResult.rows[0]
+            }
+          })
+        })
+        .catch((error) => {
+          console.error('Error creating token balance:', error)
+        })
     })
     .catch((error) => {
       console.error('Error creating balance:', error)
