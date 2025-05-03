@@ -470,6 +470,7 @@ exports.chargeMobileCredit = (req, res) => {
 
                   db.query(sql, values)
                     .then((result) => {
+                      console.log(txResult.rows[0].transaction_id)
                       const transactionId = txResult.rows[0].transaction_id
                       fetch(`${process.env.FLXA_TOKEN_SRV}/token/mint`, {
                         method: 'POST',
