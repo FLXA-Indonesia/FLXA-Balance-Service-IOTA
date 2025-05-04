@@ -73,8 +73,10 @@ vercel
 
 Follow the prompts to complete the deployment process.
 
-## API Endpoints
+## API Endpoints and Testing
 The service exposes the RESTful API endpoints accessible at `/src/routes`
+
+You can test the endpoints using Postman with this collection: [FLXA Postman Documentation](https://www.postman.com/winter-desert-840751/flxa-iota).
 
 Note: Authentication middleware ensures that only authorized users can access certain endpoints.
 
